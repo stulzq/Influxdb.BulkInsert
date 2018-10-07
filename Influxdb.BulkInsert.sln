@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Influxdb.BulkInsert", "Influxdb.BulkInsert\Influxdb.BulkInsert.csproj", "{3099A16F-1CDC-4D60-A592-1234127F010B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Influxdb.BulkInsert", "Influxdb.BulkInsert\Influxdb.BulkInsert.csproj", "{3099A16F-1CDC-4D60-A592-1234127F010B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Influxdb.BulkInsert.Sample", "sample\Influxdb.BulkInsert.Sample\Influxdb.BulkInsert.Sample.csproj", "{01A878B2-5656-4205-B1DF-7D2DB3339F3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{3099A16F-1CDC-4D60-A592-1234127F010B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3099A16F-1CDC-4D60-A592-1234127F010B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3099A16F-1CDC-4D60-A592-1234127F010B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01A878B2-5656-4205-B1DF-7D2DB3339F3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01A878B2-5656-4205-B1DF-7D2DB3339F3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01A878B2-5656-4205-B1DF-7D2DB3339F3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01A878B2-5656-4205-B1DF-7D2DB3339F3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
