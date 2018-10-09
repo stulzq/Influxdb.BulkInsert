@@ -24,5 +24,15 @@ namespace Influxdb.BulkInsert
         {
             return $"{DateTimeOffset.UtcNow.AddHours(timeZone).ToUnixTimeMilliseconds()}{ rand.Next(100000, 1000000)}";
         }
+
+        /// <summary>
+        /// Append Nanoseconds For Milliseconds
+        /// </summary>
+        /// <param name="milliseconds"></param>
+        /// <returns></returns>
+        public static string AppendNanosecondsForMilliseconds(string milliseconds)
+        {
+            return $"{milliseconds}{ rand.Next(100000, 1000000)}";
+        }
     }
 }
