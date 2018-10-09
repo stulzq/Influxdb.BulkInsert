@@ -22,7 +22,7 @@ namespace Influxdb.BulkInsert
         /// <returns></returns>
         public static string GenNanosecond(int timeZone)
         {
-            return $"{DateTimeOffset.Now.AddHours(timeZone).ToUnixTimeMilliseconds()}{ rand.Next(100000, 1000000)}";
+            return $"{DateTimeOffset.UtcNow.AddHours(timeZone).ToUnixTimeMilliseconds()}{ rand.Next(100000, 1000000)}";
         }
     }
 }
