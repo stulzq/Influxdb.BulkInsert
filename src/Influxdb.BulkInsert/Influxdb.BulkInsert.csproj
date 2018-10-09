@@ -9,7 +9,7 @@
     <RepositoryUrl>https://github.com/stulzq/Influxdb.BulkInsert.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>influxdb,udp</PackageTags>
-    <Version>0.2.0</Version>
+    <Version>0.3.0</Version>
   </PropertyGroup>
 
 </Project>
