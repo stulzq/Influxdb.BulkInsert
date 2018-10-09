@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Influxdb.BulkInsert", "Influxdb.BulkInsert\Influxdb.BulkInsert.csproj", "{3099A16F-1CDC-4D60-A592-1234127F010B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Influxdb.BulkInsert", "src\Influxdb.BulkInsert\Influxdb.BulkInsert.csproj", "{3099A16F-1CDC-4D60-A592-1234127F010B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Influxdb.BulkInsert.Sample", "sample\Influxdb.BulkInsert.Sample\Influxdb.BulkInsert.Sample.csproj", "{01A878B2-5656-4205-B1DF-7D2DB3339F3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Influxdb.BulkInsert.Sample", "sample\Influxdb.BulkInsert.Sample\Influxdb.BulkInsert.Sample.csproj", "{01A878B2-5656-4205-B1DF-7D2DB3339F3B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 src", "01 src", "{0DC69114-374B-449F-9735-9BC49F325076}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 sample", "02 sample", "{9AD12AAA-BC1C-4893-8266-DD0238D4955E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +28,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3099A16F-1CDC-4D60-A592-1234127F010B} = {0DC69114-374B-449F-9735-9BC49F325076}
+		{01A878B2-5656-4205-B1DF-7D2DB3339F3B} = {9AD12AAA-BC1C-4893-8266-DD0238D4955E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F3161C9-781D-488C-B1EA-118BD0EEF302}
