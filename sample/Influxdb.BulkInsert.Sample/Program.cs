@@ -12,21 +12,12 @@ namespace Influxdb.BulkInsert.Sample
 {
     class Program
     {
-        private static Socket _client;
-        static async Task  Main(string[] args)
+        static void  Main(string[] args)
         {
-            _client = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            var endPoint = new IPEndPoint(IPAddress.Parse("192.168.10.110"), 8088);
-            _client.Connect(endPoint);
-            ArraySegment<byte> a = Encoding.UTF8.GetBytes("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            await send(a);
-            Console.WriteLine("Complete!");
+            var insert=new InfluxUdpBulkInsert(new InfluxConnectionSetting(){Server = "127.0.0.1",Port = 8088});
+            var processor=new InfluxBulkInsertProcessor(insert);
+            processor.Write("test,type=cpu value=50.0");
             Console.ReadKey();
-        }
-
-        static async Task send(ArraySegment<byte> a)
-        {
-            await _client.SendAsync(a, SocketFlags.None);
         }
     }
 }

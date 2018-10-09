@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>stulzq</Authors>
+    <Description>Influxdb bulkInsert tool.</Description>
+    <PackageLicenseUrl>https://github.com/stulzq/Influxdb.BulkInsert/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/stulzq/Influxdb.BulkInsert</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/stulzq/Influxdb.BulkInsert.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>influxdb,udp</PackageTags>
+    <Version>0.1.0</Version>
   </PropertyGroup>
 
 </Project>
