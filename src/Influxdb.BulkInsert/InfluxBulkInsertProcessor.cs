@@ -2,22 +2,20 @@
 using System.Collections.Concurrent;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Influxdb.BulkInsert
 {
     public class InfluxBulkInsertProcessor
     {
         private readonly IInfluxBulkInsert _bulkInsert;
-        private bool _running=true;
+        private bool _running;
         private bool _stop;
-        private readonly Thread _workThread;
         private readonly ConcurrentQueue<string> _queue=new ConcurrentQueue<string>();
 
         public InfluxBulkInsertProcessor(IInfluxBulkInsert bulkInsert)
         {
             _bulkInsert = bulkInsert;
-            _workThread = new Thread(Work) {IsBackground = true};
-            _workThread.Start();
         }
 
         public void Write(string data)
@@ -25,31 +23,42 @@ namespace Influxdb.BulkInsert
             _queue.Enqueue(data);
         }
 
-        private void Work()
+        public void Open()
         {
-            StringBuilder sb = new StringBuilder();
-            while (_running)
+            _running = true;
+            Task.Run(Work);
+        }
+
+        private async Task Work()
+        {
+            
+            while (_running|| _queue.Count>0)
             {
                 try
                 {
+                    StringBuilder sb = new StringBuilder();
                     var count = _queue.Count >= _bulkInsert.BitchSize ? _bulkInsert.BitchSize : _queue.Count;
-                    for (int i = 0; i < count; i++)
+                    for (int i = 0; i < count-1; i++)
                     {
                         if (_queue.TryDequeue(out var data))
                         {
-
-                            sb.AppendLine(data);
+                            sb.Append($"{data}\n");
                         }
                     }
+                    //Reduce inner loop judgment
+                    if (_queue.TryDequeue(out var lastData))
+                    {
+                        sb.Append(lastData);
+                    }
 
-                    _bulkInsert.SendAsync(sb);
-
-                    if (count < _bulkInsert.BitchSize)
+                    if (sb.Length > 0)
+                    {
+                        await _bulkInsert.SendAsync(sb);
+                    }
+                    else
                     {
                         Thread.Sleep(1000);
                     }
-
-                    sb.Clear();
                 }
                 catch (Exception e)
                 {

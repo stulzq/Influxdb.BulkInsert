@@ -14,10 +14,17 @@ namespace Influxdb.BulkInsert.Sample
     {
         static void  Main(string[] args)
         {
-            var insert=new InfluxUdpBulkInsert(new InfluxConnectionSetting(){Server = "127.0.0.1",Port = 8088});
+            var insert=new InfluxUdpBulkInsert(new InfluxConnectionSetting(){Server = "192.168.10.110",Port = 8089});
             var processor=new InfluxBulkInsertProcessor(insert);
-            processor.Write("test,type=cpu value=50.0");
-            Console.ReadKey();
+
+            processor.Open();
+            for (int i = 0; i < 1000; i++)
+            {
+                processor.Write($"test,type='cpu' value=1 {InfluxdbTimeGen.GenNanosecond()}");
+            }
+            
+            Console.Read();
+            processor.Close();
         }
     }
 }

@@ -10,10 +10,11 @@ namespace Influxdb.BulkInsert
     public class InfluxUdpBulkInsert: IInfluxBulkInsert,IDisposable
     {
         private readonly Socket _client;
+        private readonly IPEndPoint endPoint;
         public InfluxUdpBulkInsert(InfluxConnectionSetting setting)
         {
             _client = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            var endPoint = new IPEndPoint(IPAddress.Parse(setting.Server), setting.Port);
+            endPoint = new IPEndPoint(IPAddress.Parse(setting.Server), setting.Port);
             _client.Connect(endPoint);
             BitchSize = setting.BitchSize;
         }
@@ -24,12 +25,14 @@ namespace Influxdb.BulkInsert
         {
             ArraySegment<byte> bytes = new ArraySegment<byte>(Encoding.UTF8.GetBytes(data));
             await _client.SendAsync(bytes, SocketFlags.None);
+            
         }
 
         public async Task SendAsync(StringBuilder sb)
         {
             ArraySegment<byte> bytes = new ArraySegment<byte>(Encoding.UTF8.GetBytes(sb.ToString()));
             await _client.SendAsync(bytes, SocketFlags.None);
+            Console.WriteLine("发送");
         }
 
         public void Dispose()
