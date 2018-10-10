@@ -1,8 +1,41 @@
 # Influxdb.BulkInsert
 
-Influxdb 批量插入组件，支持http和udp协议，目前不支持https
+Influxdb 异步、快速、批量插入组件，支持http和udp协议，目前不支持https。
 
->http协议待完善和测试
+## 开始
+
+### 1.HTTP
+
+````csharp
+var insert = new InfluxHttpBulkInsert(new InfluxConnectionSetting() { Server = "192.168.10.110", Port = 8086,Database = "kong",BitchSize = 5000});
+var processor = new InfluxBulkInsertProcessor(insert);
+
+processor.Open();
+for (int i = 0; i < 1000; i++)
+{
+    processor.Write($"test,type='cpu' value=1 {InfluxdbTimeGen.GenNanosecond()}");
+}
+
+Console.WriteLine("Complete");
+Console.Read();
+processor.Close();
+````
+
+### 2.UDP
+
+````csharp
+var insert = new InfluxUdpBulkInsert(new InfluxConnectionSetting() { Server = "192.168.10.110", Port = 8089,BitchSize = 10});
+var processor = new InfluxBulkInsertProcessor(insert);
+
+processor.Open();
+for (int i = 0; i < 1000; i++)
+{
+    processor.Write($"test,type='cpu' value={i} {InfluxdbTimeGen.GenNanosecond()}");
+}
+Console.WriteLine("Complete");
+Console.Read();
+processor.Close();
+````
 
 ## 使用规范
 

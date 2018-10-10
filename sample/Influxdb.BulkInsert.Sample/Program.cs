@@ -20,7 +20,7 @@ namespace Influxdb.BulkInsert.Sample
 
         static void RunHttp()
         {
-            var insert = new InfluxHttpBulkInsert(new InfluxConnectionSetting() { Server = "192.168.10.110", Port = 8086,Database = "kong"});
+            var insert = new InfluxHttpBulkInsert(new InfluxConnectionSetting() { Server = "192.168.10.110", Port = 8086,Database = "kong",BitchSize = 5000});
             var processor = new InfluxBulkInsertProcessor(insert);
 
             processor.Open();
