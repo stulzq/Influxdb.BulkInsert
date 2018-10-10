@@ -1,6 +1,6 @@
 # Influxdb.BulkInsert
 
-Influxdb 批量插入组件，支持http和udp协议
+Influxdb 批量插入组件，支持http和udp协议，目前不支持https
 
 >http协议待完善和测试
 

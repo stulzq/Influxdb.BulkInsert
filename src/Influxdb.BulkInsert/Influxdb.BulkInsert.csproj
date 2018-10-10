@@ -12,4 +12,8 @@
     <Version>0.3.0</Version>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
+  </ItemGroup>
+
 </Project>

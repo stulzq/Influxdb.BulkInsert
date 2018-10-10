@@ -21,7 +21,6 @@ namespace Influxdb.BulkInsert
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Database { get; set; }
-
-        public int BitchSize { get; set; } = 50;
+        public int BitchSize { get; set; } = 10;
     }
 }
