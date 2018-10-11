@@ -1,5 +1,7 @@
 # Influxdb.BulkInsert
 
+[![Latest version](https://img.shields.io/nuget/v/Influxdb.BulkInsert.svg?style=flat-square)](https://www.nuget.org/packages/Influxdb.BulkInsert/)
+
 Influxdb 异步、快速、批量插入组件，支持http和udp协议，目前不支持https。
 
 ## 开始
