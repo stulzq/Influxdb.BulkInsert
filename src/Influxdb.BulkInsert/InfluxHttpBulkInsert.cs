@@ -34,7 +34,7 @@ namespace Influxdb.BulkInsert
                 throw new ArgumentException("max BitchSize is 5000 form http protocol.", nameof(setting.BitchSize));
             }
 
-            _client = new HttpClient() {BaseAddress = new Uri($"http://{setting.Server}:{setting.Port}")};
+            _client = new HttpClient() {BaseAddress = new Uri($"http://{setting.Server}:{setting.Port}"),Timeout = TimeSpan.FromSeconds(setting.Timeout) };
             BitchSize = setting.BitchSize;
             if (string.IsNullOrEmpty(setting.UserName) && string.IsNullOrEmpty(setting.Password))
             {
@@ -44,6 +44,10 @@ namespace Influxdb.BulkInsert
             {
                 _writePath = $"/write?db={setting.Database}&u={setting.UserName}&p={setting.Password}";
             }
+        }
+
+        public InfluxHttpBulkInsert([NotNull] string connectionString):this(new InfluxConnectionSetting(connectionString))
+        {
         }
 
         public int BitchSize { get; }

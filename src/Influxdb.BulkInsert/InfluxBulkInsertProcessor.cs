@@ -18,6 +18,30 @@ namespace Influxdb.BulkInsert
             _bulkInsert = bulkInsert;
         }
 
+        public InfluxBulkInsertProcessor(InfluxConnectionSetting setting, InfluxInsertProtocol protocol)
+        {
+            if (protocol == InfluxInsertProtocol.Http)
+            {
+                _bulkInsert = new InfluxHttpBulkInsert(setting);
+            }
+            else
+            {
+                _bulkInsert = new InfluxUdpBulkInsert(setting);
+            }
+        }
+
+        public InfluxBulkInsertProcessor(string connectionString, InfluxInsertProtocol protocol)
+        {
+            if (protocol == InfluxInsertProtocol.Http)
+            {
+                _bulkInsert = new InfluxHttpBulkInsert(connectionString);
+            }
+            else
+            {
+                _bulkInsert = new InfluxUdpBulkInsert(connectionString);
+            }
+        }
+
         public void Write(string data)
         {
             _queue.Enqueue(data);

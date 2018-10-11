@@ -30,6 +30,10 @@ namespace Influxdb.BulkInsert
             BitchSize = setting.BitchSize;
         }
 
+        public InfluxUdpBulkInsert([NotNull] string connectionString):this(new InfluxConnectionSetting(connectionString))
+        {
+        }
+
         public int BitchSize { get; }
 
         public async Task SendAsync(string data)
