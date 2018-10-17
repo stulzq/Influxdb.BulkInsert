@@ -16,12 +16,13 @@ namespace Influxdb.BulkInsert.Sample
         {
             RunHttp();
             RunUdp();
+
+            Console.Read();
         }
 
         static void RunHttp()
         {
-            var insert = new InfluxHttpBulkInsert(new InfluxConnectionSetting("Server=192.168.10.110;Port=8086;BitchSize=50;Database=kong;Timeout=30;"));
-            var processor = new InfluxBulkInsertProcessor(insert);
+            var processor = new InfluxBulkInsertProcessor("Server=192.168.2.120;Port=8086;BitchSize=50;Database=kong;Timeout=30;",InfluxInsertProtocol.Http);
 
             processor.Open();
             for (int i = 0; i < 1000; i++)
@@ -29,23 +30,20 @@ namespace Influxdb.BulkInsert.Sample
                 processor.Write($"test,type='cpu' value=1 {InfluxdbTimeGen.GenNanosecond()}");
             }
 
-            Console.WriteLine("Complete");
-            Console.Read();
+            Console.WriteLine("Complete http");
             processor.Close();
         }
 
         static void RunUdp()
         {
-            var insert = new InfluxUdpBulkInsert(new InfluxConnectionSetting("Server=192.168.10.110;Port=8089;BitchSize=10"));
-            var processor = new InfluxBulkInsertProcessor(insert);
+            var processor = new InfluxBulkInsertProcessor("Server=192.168.2.120;Port=8089;BitchSize=10",InfluxInsertProtocol.Udp);
 
             processor.Open();
             for (int i = 0; i < 1000; i++)
             {
                 processor.Write($"test,type='cpu' value={i} {InfluxdbTimeGen.GenNanosecond()}");
             }
-            Console.WriteLine("Complete");
-            Console.Read();
+            Console.WriteLine("Complete udp");
             processor.Close();
         }
     }

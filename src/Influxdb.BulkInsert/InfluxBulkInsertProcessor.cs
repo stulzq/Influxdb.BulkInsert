@@ -24,6 +24,7 @@ namespace Influxdb.BulkInsert
 
         public InfluxBulkInsertProcessor(InfluxConnectionSetting setting, InfluxInsertProtocol protocol)
         {
+            _logger = LogManager.GetLogger(this);
             if (protocol == InfluxInsertProtocol.Http)
             {
                 _bulkInsert = new InfluxHttpBulkInsert(setting);
