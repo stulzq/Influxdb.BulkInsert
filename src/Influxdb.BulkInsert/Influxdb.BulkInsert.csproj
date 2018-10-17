@@ -9,12 +9,13 @@
     <RepositoryUrl>https://github.com/stulzq/Influxdb.BulkInsert.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>influxdb,udp</PackageTags>
-    <Version>1.1.0</Version>
-    <PackageReleaseNotes>Add connection string.</PackageReleaseNotes>
+    <Version>1.2.0</Version>
+    <PackageReleaseNotes>Add logging.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.1.0" />
   </ItemGroup>
 
 </Project>
