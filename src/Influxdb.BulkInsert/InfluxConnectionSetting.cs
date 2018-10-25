@@ -26,34 +26,34 @@ namespace Influxdb.BulkInsert
         {
             try
             {
-                var temp = connectionString.Trim().ToLower().Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+                var temp = connectionString.Trim().Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var item in temp)
                 {
-                    if (item.StartsWith("server"))
+                    if (item.StartsWith("server", true, null))
                     {
                         Server = item.Substring(7);
                     }
-                    else if (item.StartsWith("port"))
+                    else if (item.StartsWith("port", true, null))
                     {
                         Port = int.Parse(item.Substring(5));
                     }
-                    else if (item.StartsWith("username"))
+                    else if (item.StartsWith("username", true, null))
                     {
                         UserName = item.Substring(9);
                     }
-                    else if (item.StartsWith("password"))
+                    else if (item.ToLower().StartsWith("password",true,null))
                     {
                         Password = item.Substring(9);
                     }
-                    else if (item.StartsWith("database"))
+                    else if (item.StartsWith("database", true, null))
                     {
                         Database = item.Substring(9);
                     }
-                    else if (item.StartsWith("bitchsize"))
+                    else if (item.StartsWith("bitchsize", true, null))
                     {
                         BitchSize = int.Parse(item.Substring(10));
                     }
-                    else if (item.StartsWith("timeout"))
+                    else if (item.StartsWith("timeout", true, null))
                     {
                         Timeout = int.Parse(item.Substring(8));
                     }
