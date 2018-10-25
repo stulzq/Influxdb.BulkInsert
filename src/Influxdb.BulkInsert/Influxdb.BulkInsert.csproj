@@ -9,8 +9,8 @@
     <RepositoryUrl>https://github.com/stulzq/Influxdb.BulkInsert.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>influxdb,udp</PackageTags>
-    <Version>1.2.1</Version>
-    <PackageReleaseNotes>Add logging.</PackageReleaseNotes>
+    <Version>1.2.2</Version>
+    <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
