@@ -14,13 +14,10 @@ namespace Influxdb.BulkInsert
         private bool _stop;
         private readonly ConcurrentQueue<string> _queue=new ConcurrentQueue<string>();
         private readonly ILogger _logger;
+        private readonly InfluxHealthCheck _healthCheck;
         private readonly object _lockObject=new object();
-
-        public InfluxBulkInsertProcessor(IInfluxBulkInsert bulkInsert)
-        {
-            _bulkInsert = bulkInsert;
-            _logger = LogManager.GetLogger(this);
-        }
+        private bool _stopEqueue;
+        private const int MAXQUEUECOUNT=1000000;
 
         public InfluxBulkInsertProcessor(InfluxConnectionSetting setting, InfluxInsertProtocol protocol)
         {
@@ -35,6 +32,7 @@ namespace Influxdb.BulkInsert
                 _bulkInsert = new InfluxUdpBulkInsert(setting);
                 _logger.LogInformation("InfluxBulkInsertProcessor use udp.");
             }
+            _healthCheck=new InfluxHealthCheck(setting);
         }
 
         public InfluxBulkInsertProcessor(string connectionString, InfluxInsertProtocol protocol):this(new InfluxConnectionSetting(connectionString),protocol)
@@ -44,6 +42,10 @@ namespace Influxdb.BulkInsert
 
         public void Write(string data)
         {
+            if (_stopEqueue || _queue.Count >= MAXQUEUECOUNT)
+            {
+                return;
+            }
             _queue.Enqueue(data);
         }
 
@@ -68,13 +70,14 @@ namespace Influxdb.BulkInsert
                 {
                     StringBuilder sb = new StringBuilder();
                     var count = _queue.Count >= _bulkInsert.BitchSize ? _bulkInsert.BitchSize : _queue.Count;
-                    for (int i = 0; i < count-1; i++)
+                    for (int i = 0; i < count - 1; i++)
                     {
                         if (_queue.TryDequeue(out var data))
                         {
                             sb.Append($"{data}\n");
                         }
                     }
+
                     //Reduce inner loop judgment
                     if (_queue.TryDequeue(out var lastData))
                     {
@@ -89,9 +92,16 @@ namespace Influxdb.BulkInsert
                     {
                         Thread.Sleep(1000);
                     }
+
+                    if (!_stopEqueue) continue;
+                    if (await _healthCheck.Check())
+                    {
+                        _stopEqueue = false;
+                    }
                 }
                 catch (Exception e)
                 {
+                    _stopEqueue=true;
                     _logger.LogError(e, "Error Occurred.");
                 }
             }
